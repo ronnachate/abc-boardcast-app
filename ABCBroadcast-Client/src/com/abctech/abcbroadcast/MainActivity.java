@@ -119,11 +119,16 @@ public class MainActivity extends Activity {
 		    }
 			return true;
 		case R.id.action_inbox:
-			showAlertDlg("Inbox Status", "no msg now");
+			InboxMessage();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	private void InboxMessage(){
+		Intent i = new Intent (MainActivity.this, InboxMessage.class);
+		startActivity(i);
 	}
 	
 	private void showAlertDlg(String title, String msg)
