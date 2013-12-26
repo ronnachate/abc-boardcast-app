@@ -305,11 +305,15 @@ public class MainActivity extends Activity
 		            {
 		                mDisplay.append(msg + "\n");
 		                messageEditText.setText("");
+		                showAlertDlg("Send result", "Message sent");
 		              
 		            }
 		        }.execute(null, null, null);
 	    	}
-	    } 
+	    }
+	    else if (view == findViewById(R.id.ok) ) {
+	    	moveTaskToBack(true);
+	    }
 	}
 	
 	@Override
