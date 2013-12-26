@@ -13,11 +13,6 @@ public class App
 		return "http://192.168.40.112:3000";
 	}
 	
-	public static boolean isSender()
-	{
-		return true;
-	}
-	
 	public static boolean isForeground(Context context) 
 	{
 	    ActivityManager am = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);

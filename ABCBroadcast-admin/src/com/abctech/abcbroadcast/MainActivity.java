@@ -86,11 +86,9 @@ public class MainActivity extends Activity
 	    messageEditText =  (EditText)findViewById(R.id.messageEditText);
 	    senderPanel = (LinearLayout)findViewById(R.id.senderPanel);
 	    
-	    if(App.isSender() == true)
-	    	senderPanel.setVisibility(View.VISIBLE);
-	    else
-	    	senderPanel.setVisibility(View.GONE);
-	    
+
+	    senderPanel.setVisibility(View.VISIBLE);
+	
 	    
 	    if(getIntent() != null && getIntent().getExtras() != null && getIntent().getExtras().getString("message") != null && getIntent().getExtras().getString("message").trim().length() > 0)
 	    {
