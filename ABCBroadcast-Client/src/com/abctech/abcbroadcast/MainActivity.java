@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -15,6 +16,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
@@ -25,6 +28,7 @@ import com.abctech.abcbroadcast.serviceclient.abc.ABCServiceClient;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import android.view.Menu;
 
 public class MainActivity extends Activity {
 	
@@ -34,7 +38,7 @@ public class MainActivity extends Activity {
 	private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 	String SENDER_ID = "418087069711";
 	
-	static final String TAG = "ABCBroadcast";
+	static final String TAG = "ABC Broadcast Reciever";
 	
 	TextView mDisplay;
 	GoogleCloudMessaging gcm;
@@ -55,7 +59,6 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		ServiceClientHelper.getInstance().setServiceUri(App.getServerUri(context));
 		
 		setContentView(R.layout.activity_main);
@@ -73,12 +76,12 @@ public class MainActivity extends Activity {
 	        Log.i(TAG, "No valid Google Play Services APK found.");
 	    }
 	    
-	    final SharedPreferences prefs = getGcmPreferences(context);
-	    if (prefs.contains(PROPERTY_REG_ID)) {
-	    	Button activeButton = (Button) findViewById(R.id.activate);
-	    	activeButton.setEnabled(false);
-	    	activeButton.setText("Activated");    	
-	    }
+//	    final SharedPreferences prefs = getGcmPreferences(context);
+//	    if (prefs.contains(PROPERTY_REG_ID)) {
+//	    	Button activeButton = (Button) findViewById(R.id.activate);
+//	    	activeButton.setEnabled(false);
+//	    	activeButton.setText("Activated");    	
+//	    }
 	    
 	    if(getIntent() != null && getIntent().getExtras() != null && getIntent().getExtras().getString("message") != null && getIntent().getExtras().getString("message").trim().length() > 0)
 	    {
@@ -92,6 +95,35 @@ public class MainActivity extends Activity {
 				}
 			}, 200);
 	    }
+	}
+	
+	//create menu
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.activity_main_action, menu);
+	    return super.onCreateOptionsMenu(menu);
+	}
+	
+	//On select action bar icon
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item){
+		switch (item.getItemId()){
+		case R.id.active_account:
+		    final SharedPreferences prefs = getGcmPreferences(context);
+		    if (prefs.contains(PROPERTY_REG_ID)) {
+		    	showAlertDlg("Register Account", "This device is regiested");
+		    }else {
+		    	registerDevice();
+		    	showAlertDlg("Register Account", "Register is succesful!");
+		    }
+			return true;
+		case R.id.action_inbox:
+			showAlertDlg("Inbox Status", "no msg now");
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 	
 	private void showAlertDlg(String title, String msg)
@@ -164,6 +196,7 @@ public class MainActivity extends Activity {
 		
 	    new AsyncTask<Void, Void, String>() 
 	    {
+	    	
 	        @Override
 	        protected String doInBackground(Void... params) 
 	        {
@@ -197,6 +230,7 @@ public class MainActivity extends Activity {
 	                // If there is an error, don't just keep trying to register.
 	                // Require the user to click a button again, or perform
 	                // exponential back-off.
+	                
 	            }
 	            return msg;
 	        }

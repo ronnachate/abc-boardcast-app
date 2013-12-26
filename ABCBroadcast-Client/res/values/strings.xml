@@ -6,5 +6,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="ok">OK</string>
     <string name="activate">activate</string>
+    <string name="action_account">Account</string>
+    <string name="action_inbox">Inbox</string>
+    <string name="activity_new_message">activity_new_message</string>
 
 </resources>

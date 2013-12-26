@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    tools:context="ABC Boardcast Reciever" >
     <TextView
         android:id="@+id/display"
         android:visibility="gone"
@@ -41,5 +41,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:src="@drawable/abclogo" android:contentDescription="abctech logo"/>
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" >
+    </HorizontalScrollView>
 
 </RelativeLayout>
