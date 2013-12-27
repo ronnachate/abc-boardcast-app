@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.database.SQLException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
 
+import com.abctech.abcbroadcast.data.DatabaseHandler;
 import com.abctech.abcbroadcast.serviceclient.ServiceAsyncCallback;
 import com.abctech.abcbroadcast.serviceclient.ServiceClientHelper;
 import com.abctech.abcbroadcast.serviceclient.abc.ABCServiceClient;
@@ -85,15 +87,23 @@ public class MainActivity extends Activity {
 	    
 	    if(getIntent() != null && getIntent().getExtras() != null && getIntent().getExtras().getString("message") != null && getIntent().getExtras().getString("message").trim().length() > 0)
 	    {
+	    	final String message = getIntent().getExtras().getString("message").trim();
+	    	Log.i("mes",message);
 	    	Handler hnd = new Handler();
 	    	hnd.postDelayed(new Runnable() {
 				
 				@Override
 				public void run() 
 				{
-					showAlertDlg("New message!", getIntent().getExtras().getString("message").trim());
+					showAlertDlg("New message!", message);
 				}
 			}, 200);
+	    	try {
+	    		DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+	    		db.insertMsg(message);
+	    	} catch( SQLException e) {
+	    		showAlertDlg( "Error",e.toString());
+	    	}
 	    }
 	}
 	
