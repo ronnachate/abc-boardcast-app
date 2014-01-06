@@ -195,17 +195,17 @@ public class MainActivity extends Activity {
 	}
 	
 	// Send an upstream message.
-	public void onClick(final View view) 
-	{
-	    if (view == findViewById(R.id.activate)) 
-	    {
-	    	registerDevice();
-	    }
-	    else if (view == findViewById(R.id.ok) ) {
-	    	moveTaskToBack(true);
-	    }
-	}
-	
+//	public void onClick(final View view) 
+//	{
+//	    if (view == findViewById(R.id.activate)) 
+//	    {
+//	    	registerDevice();
+//	    }
+//	    else if (view == findViewById(R.id.ok) ) {
+//	    	moveTaskToBack(true);
+//	    }
+//	}
+//	
 	private void registerDevice() 
 	{
 		
@@ -235,9 +235,9 @@ public class MainActivity extends Activity {
 	
 	                // Persist the regID - no need to register again.
 	                storeRegistrationId(context, regid);
-	                Button activeButton = (Button) findViewById(R.id.activate);
-	    	    	activeButton.setEnabled(false);
-	    	    	activeButton.setText("Activated");
+//	                Button activeButton = (Button) findViewById(R.id.activate);
+//	    	    	activeButton.setEnabled(false);
+//	    	    	activeButton.setText("Activated");
 	            } 
 	            catch (IOException ex)
 	            {
